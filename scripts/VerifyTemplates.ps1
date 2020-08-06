@@ -7,8 +7,11 @@ $files = Get-ChildItem "../resources"
 
 foreach ($file in $files) {
     Write-Host "Testing $file"
-    $r = Test-AzTemplate -File $file.FullName   
-    Write-Host $r
+    Copy-Item -Path $file.FullName -Destination "azuredeploy.json"
+    $r = Test-AzTemplate
+    
+    # Dump test results
+    $r
 
     # Counting errors
     foreach ($i in $r) {
